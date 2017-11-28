@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<title>WebGL - Texture Cube</title>
+	</head>
+	<body>
+		<p> Made using glMatrix.net matrix code. Dr. Xiao allowed me to do this instead of the Robot</p></br>
+		<p> To change the cube texture double click a button!</p>
+		<input type="button" name="Cube" value="Draw Cube" onclick="InitDemo();"> <br>
+		<input type="button" name="sphere" value="Draw Sphere" onclick="init();" > <br>
+		
+
+		
+		<img id='crate-image'  width ="0" height ="0" ></img>
+		<script language='JavaScript' type='text/javascript'>
+		
+		function change_texture(image)
+		{
+			document.getElementById("crate-image").src = image;
+			InitDemo();
+		}
+		
+		
+		</script>
+
+		<div class="container" id="newpage" style="margin-top: 15px; margin-bottom: 10px; height: 500px">
+                        <canvas id="aCanvas" style="border:1px solid #000; margin-top: 15px;">Your browser does not support the HTML5 canvas tag.</canvas>
+                    </div>
+		<br />
+		<script src="gl-matrix.js"></script>
+		<script src="ATextureCube.js"></script>
+		<script src="ATextureSphere.js"></script>
+		<script src="three.js"></script>
+		
+		<script>
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(50, 500 / 400, 0.1, 1000);
+
+		var renderer = new THREE.WebGLRenderer();
+		renderer.setSize(500, 400);
+		document.body.appendChild(renderer.domElement);
+
+		var geometry = new THREE.SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
+		var material = new THREE.MeshNormalMaterial();
+		var cube = new THREE.Mesh(geometry, material);
+		scene.add(cube);
+
+
+		camera.position.z = 10;
+		var render = function () {
+		requestAnimationFrame(render);
+
+		cube.rotation.y += 0.01;
+
+		renderer.render(scene, camera);
+};
+
+render();
+</script>
+
+<script>
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera(50, 500 / 400, 0.1, 1000);
+
+		var renderer = new THREE.WebGLRenderer();
+		renderer.setSize(500, 400);
+		document.body.appendChild(renderer.domElement);
+
+		var geometry = new THREE.SphereGeometry(3, 50, 50, 0, Math.PI * 2, 0, Math.PI * 2);
+		var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('stone.png') } );
+		var cube = new THREE.Mesh(geometry, material);
+		scene.add(cube);
+
+
+		camera.position.z = 10;
+		var render = function () {
+		requestAnimationFrame(render);
+
+		cube.rotation.y += 0.01;
+
+		renderer.render(scene, camera);
+};
+
+render();
+</script>
+	</body>
+</html>
